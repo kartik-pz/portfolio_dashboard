@@ -13,7 +13,9 @@ export async function POST(request) {
     }
     
     const API_URL = 'https://api.dify.ai/v1/chat-messages';
-    const API_KEY = 'app-Eo6iAFXf6S6XJqudqX1So55C'; // Move this to environment variables in production
+    const API_KEY = process.env.DIFY_API_KEY;
+
+    console.log(`[Chat API] Using API key: ${API_KEY ? '✓ Available' : '✗ Missing'}`);
     
     // Make initial request to Dify API with streaming mode
     console.log('Making request to Dify API with streaming mode');

@@ -1,48 +1,125 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# AI Powered Stock Portfolio Dashboard
 
-## Getting Started
+A modern Next.js application that combines a real-time stock portfolio dashboard with an AI assistant to help you monitor and analyze your investments.
 
-First, run the development server:
+![Stock Portfolio Dashboard](https://example.com/screenshot.png)
+
+## Features
+
+- **Real-time Stock Data**: Fetches and displays stock data with automatic 15-second refresh
+- **Portfolio Performance Metrics**: Shows investment values, current values, gain/loss amounts and percentages
+- **Sector-based Analysis**: Groups stocks by sector for better portfolio analysis
+- **Financial Metrics**: Displays P/E ratios and latest earnings data
+- **AI Assistant**: Built-in chat interface for portfolio insights and analysis
+- **Responsive Design**: Works on desktop and mobile devices
+- **Multiple Data Sources**: Uses Yahoo Finance for price data and Finnhub for financial metrics
+
+## Prerequisites
+
+- Node.js 18.x or higher
+- npm or yarn
+- Finnhub API key (free tier available at [finnhub.io](https://finnhub.io))
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/stock-portfolio-dashboard.git
+   cd stock-portfolio-dashboard
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Set up environment variables:
+   ```bash
+   cp .env.local.example .env.local
+   ```
+
+4. Edit `.env.local` and add your Finnhub API key:
+   ```
+   FINNHUB_API_KEY=your_finnhub_api_key_here
+   ```
+
+## Running the Application
+
+Start the development server:
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `/src/app/components/StockWidget.jsx`: Main stock dashboard component
+- `/src/app/api/stocks/route.js`: API route for fetching Yahoo Finance stock data
+- `/src/app/api/financial/route.js`: API route for fetching Finnhub financial data
+- `/src/app/types/portfolio.js`: Types and utility functions for portfolio calculations
 
-## Stock Portfolio Dashboard
+## Customizing Your Portfolio
 
-This project includes a stock portfolio dashboard that fetches real-time stock data every 15 seconds. The dashboard supports two data sources:
+You can customize the portfolio by editing the `portfolioData` array in `src/app/components/StockWidget.jsx`. For each stock, you can specify:
 
-1. **Yahoo Finance** (default) - Uses the `yahoo-finance2` npm package to fetch stock data
-2. **Alpha Vantage** - Uses the Alpha Vantage API to fetch stock data
+```javascript
+{ 
+  symbol: 'AAPL', 
+  purchasePrice: 150.25, 
+  quantity: 10, 
+  exchange: 'NASDAQ', 
+  sector: 'Technology' 
+}
+```
 
-### Configuration
+## Data Sources
 
-You can configure the stock widget in the `src/app/config/stocks.js` file:
+### Yahoo Finance
 
-- Change the default data source
-- Modify the list of default stock symbols
-- Adjust the refresh interval
+The application uses the `yahoo-finance2` npm package to fetch real-time stock prices. No API key is required for this data source.
 
-### Using Alpha Vantage API
+### Finnhub
 
-To use the Alpha Vantage API:
+Financial metrics like P/E ratios and earnings data are fetched from Finnhub. You'll need to:
 
-1. Sign up for a free API key at [Alpha Vantage](https://www.alphavantage.co/support/#api-key)
-2. Copy `.env.local.example` to `.env.local`
-3. Add your API key to the `.env.local` file
-4. Update the data source in `src/app/page.js` to use `DATA_SOURCES.ALPHA_VANTAGE`
+1. Sign up for a free API key at [finnhub.io](https://finnhub.io)
+2. Add your API key to the `.env.local` file
+
+## Caching
+
+The application includes built-in caching mechanisms to:
+- Reduce API calls to external services
+- Provide fallback data during API outages
+- Optimize performance
+
+## Performance Considerations
+
+- Stock data is automatically refreshed every 15 seconds
+- Financial data (P/E ratios, earnings) is cached for longer periods
+- The application uses Next.js server components for optimal performance
+
+## Troubleshooting
+
+If you encounter issues with the API:
+
+1. Check your Finnhub API key is correct in `.env.local`
+2. Ensure you have a stable internet connection
+3. Check the Finnhub API status at [status.finnhub.io](https://status.finnhub.io)
+4. Check the browser console for detailed error messages
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Learn More
 
