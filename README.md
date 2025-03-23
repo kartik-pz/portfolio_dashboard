@@ -20,6 +20,30 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Stock Portfolio Dashboard
+
+This project includes a stock portfolio dashboard that fetches real-time stock data every 15 seconds. The dashboard supports two data sources:
+
+1. **Yahoo Finance** (default) - Uses the `yahoo-finance2` npm package to fetch stock data
+2. **Alpha Vantage** - Uses the Alpha Vantage API to fetch stock data
+
+### Configuration
+
+You can configure the stock widget in the `src/app/config/stocks.js` file:
+
+- Change the default data source
+- Modify the list of default stock symbols
+- Adjust the refresh interval
+
+### Using Alpha Vantage API
+
+To use the Alpha Vantage API:
+
+1. Sign up for a free API key at [Alpha Vantage](https://www.alphavantage.co/support/#api-key)
+2. Copy `.env.local.example` to `.env.local`
+3. Add your API key to the `.env.local` file
+4. Update the data source in `src/app/page.js` to use `DATA_SOURCES.ALPHA_VANTAGE`
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

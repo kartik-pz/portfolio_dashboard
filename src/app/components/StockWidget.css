@@ -1,0 +1,147 @@
+.portfolio-table {
+  border-collapse: collapse;
+  width: 100%;
+  position: relative;
+  overflow-x: auto;
+}
+
+.portfolio-table th {
+  background-color: #f9fafb;
+  font-weight: 600;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.portfolio-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.section-row {
+  background-color: #e5e7eb;
+  font-weight: 600;
+}
+
+.stock-row {
+  transition: background-color 0.2s;
+}
+
+.stock-row:hover {
+  background-color: #f9fafb;
+}
+
+.positive-change {
+  color: #10b981;
+}
+
+.negative-change {
+  color: #ef4444;
+}
+
+.sector-row {
+  background-color: #e5e7eb;
+  transition: background-color 0.2s;
+}
+
+.sector-row[data-sector="Technology"] td:first-child {
+  border-left: 4px solid #3b82f6; /* blue */
+}
+
+.sector-row[data-sector="Financial"] td:first-child {
+  border-left: 4px solid #10b981; /* green */
+}
+
+.sector-row[data-sector="Power"] td:first-child {
+  border-left: 4px solid #f59e0b; /* amber */
+}
+
+.portfolio-total {
+  font-weight: 700;
+  background-color: #d1d5db;
+  border-top: 2px solid #9ca3af;
+}
+
+.portfolio-total td:first-child {
+  border-left: 4px solid #4f46e5; /* indigo */
+}
+
+.section-total {
+  font-weight: 600;
+  border-top: 1px solid #e5e7eb;
+}
+
+.portfolio-summary {
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.sector-header {
+  border-left: 4px solid #4f46e5;
+  transition: all 0.2s ease;
+}
+
+.sector-header:hover {
+  background-color: #f3f4f6;
+}
+
+/* Different border colors for different sectors */
+.sector-header[data-sector="Technology"] {
+  border-left-color: #3b82f6; /* blue */
+}
+
+.sector-header[data-sector="Financial"] {
+  border-left-color: #10b981; /* green */
+}
+
+.sector-header[data-sector="Power"] {
+  border-left-color: #f59e0b; /* amber */
+}
+
+/* Cache indicator styling */
+.cache-indicator {
+  background-color: #fef3c7;
+  color: #d97706;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.cache-indicator::before {
+  content: "⚠";
+  margin-right: 4px;
+}
+
+/* Fixed first column styling */
+.portfolio-table .sticky-column {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background-color: white;
+}
+
+.portfolio-table tr.sector-row .sticky-column,
+.portfolio-table tr.portfolio-total .sticky-column {
+  background-color: #e5e7eb; /* Keep the gray background for sector and total rows */
+}
+
+.portfolio-table tr:hover .sticky-column {
+  background-color: #f9fafb; /* Match hover color */
+}
+
+/* Add shadow to indicate fixed column */
+.portfolio-table .sticky-column::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 4px;
+  pointer-events: none;
+  box-shadow: inset -1px 0 0 #e5e7eb, 2px 0 4px -2px rgba(0, 0, 0, 0.1);
+} 
