@@ -77,9 +77,9 @@ export async function GET(request) {
             earningsPromise
           ]);
           
-          // Check for rate limiting for basic financials
-          if (basicFinancialsResult.status === 429) {
-            console.log(`[Financial API] Rate limit exceeded for basic financials of ${symbol}, using cached data if available`);
+          // Check for rate limiting or other error responses for basic financials
+          if (!basicFinancialsResult.ok) {
+            console.log(`[Financial API] Error for basic financials of ${symbol}: ${basicFinancialsResult.status}, using cached data if available`);
             
             // Find cached result for this symbol
             const cachedSymbolResult = cachedResults?.find(item => item.symbol === symbol);
@@ -90,11 +90,46 @@ export async function GET(request) {
               return cachedSymbolResult;
             }
             
-            throw new Error(`Rate limit exceeded for ${symbol}`);
+            throw new Error(`API error for ${symbol}: ${basicFinancialsResult.status}`);
           }
           
           console.log(`[Financial API] Status code for ${symbol} - Basic financials: ${basicFinancialsResult.status}`);
           
+          // Also check for errors in earnings results
+          if (!earningsResult.ok) {
+            console.log(`[Financial API] Error for earnings of ${symbol}: ${earningsResult.status}, using cached data if available`);
+            
+            // Use cached earnings data if available
+            if (earningsCache[symbol]) {
+              console.log(`[Financial API] Using cached earnings data for ${symbol} as fallback`);
+              // Use cached earnings
+              const earnings = earningsCache[symbol];
+              const basicFinancials = await basicFinancialsResult.json();
+              
+              // Extract relevant data
+              const peRatio = basicFinancials?.metric?.peTTM || null;
+              const latestEarnings = earnings?.[0]?.actual || null;
+              
+              console.log(`[Financial API] Extracted data for ${symbol} - P/E Ratio: ${peRatio}, Latest Earnings: ${latestEarnings}`);
+              
+              // Return the result for this symbol
+              return {
+                symbol,
+                peRatio,
+                latestEarnings
+              };
+            } else {
+              // No cached earnings data, return what we can with null earnings
+              const basicFinancials = await basicFinancialsResult.json();
+              return {
+                symbol,
+                peRatio: basicFinancials?.metric?.peTTM || null,
+                latestEarnings: null
+              };
+            }
+          }
+          
+          // If both responses are good, parse the JSON
           const basicFinancials = await basicFinancialsResult.json();
           const earnings = await earningsResult.json();
           
