@@ -43,6 +43,7 @@ A modern Next.js application that combines a real-time stock portfolio dashboard
 4. Edit `.env.local` and add your Finnhub API key:
    ```
    FINNHUB_API_KEY=your_finnhub_api_key_here
+   DIFY_API_KEY=your_dify_agent_key
    ```
 
 ## Running the Application
