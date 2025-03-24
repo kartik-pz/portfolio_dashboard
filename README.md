@@ -41,7 +41,7 @@ A modern Next.js application that combines a real-time stock portfolio dashboard
    ```
 
 4. Edit `.env.local` and add your Finnhub API key:
-   ```
+   ```bash
    FINNHUB_API_KEY=your_finnhub_api_key_here
    DIFY_API_KEY=your_dify_agent_key
    ```
@@ -53,7 +53,7 @@ Start the development server:
 ```bash
 npm run dev
 # or
-yarn dev
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
@@ -91,6 +91,16 @@ Financial metrics like P/E ratios and earnings data are fetched from Finnhub. Yo
 
 1. Sign up for a free API key at [finnhub.io](https://finnhub.io)
 2. Add your API key to the `.env.local` file
+
+## AI Assistant
+
+The application includes an AI assistant powered by Dify that provides portfolio insights and investment recommendations.
+
+### Key Files
+- `/src/app/components/chatWithAgent.jsx`: Chat interface component for the AI assistant
+- `/src/app/api/chat/route.js`: API route that handles communication with Dify
+
+To use the assistant, simply add your Dify API key to the `.env.local` file as shown in the installation section.
 
 ## Caching
 
